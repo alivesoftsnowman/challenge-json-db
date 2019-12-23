@@ -22,7 +22,6 @@ router.put('/*', async (req, res)=>{
             fs.readFile(path, 'utf8', function(err, data) {
                 var createStream = fs.createWriteStream(path);
                 let insertData = JSON.parse(data)
-
                 Object.keys(req.body).map(item=>{
                     let arrayDataKey = dataKey.join(".") + "."+item
                     nestedProperty.set(insertData, arrayDataKey, req.query[item])
@@ -32,7 +31,7 @@ router.put('/*', async (req, res)=>{
                 createStream.write(insertData)
                 createStream.end()
                 insert_state = "yes"
-                // res.json({path, insert_state, success:true})
+                res.json({path, insert_state, success:true})
             });
         }else{
 
@@ -47,7 +46,7 @@ router.put('/*', async (req, res)=>{
                 createStream.end();
             }
             insert_state = "created"
-            // res.json({path, insert_state, success:true})
+            res.json({path, insert_state, success:true})
 
         }
 
